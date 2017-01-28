@@ -29,9 +29,9 @@ class Index(webapp2.RequestHandler):
     def get(self):
 
         user_signup_form = """
-        <form action="/userverify" method="post">
+        <div><form action="/userverify" method="post">
             <label>
-            Username
+            <span>Username</span>
                 <input type="text" name="username"/><br>
             </label><br>
             <label>
@@ -47,7 +47,7 @@ class Index(webapp2.RequestHandler):
                 <input type="text" name="email"/><br>
             </label>
             <buton><input type="submit" value="Submit"/></button>
-        </form>
+        </form></div>
         """
         error = self.request.get("error")
         error_element = "<p class='error'>" + error + "</p>" if error else ""
