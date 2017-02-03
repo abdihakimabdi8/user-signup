@@ -23,19 +23,16 @@ page_footer = """
 """
 empty_space = " "
 class Index(webapp2.RequestHandler):
-    """ Handles requests coming in to '/' (the root of our site)
-        e.g. www.flicklist.com/
-    """
     def get(self):
 
         user_signup_form = """
         <div><form action="/userverify" method="post">
             <label>
-            <span>Username</span>
+            <span style="display:inline-block; padding-right:48px;">Username</span>
                 <input type="text" name="username"/><br>
             </label><br>
             <label>
-            Password
+            <span style="display:inline-block; padding-right:50px;">Password</span>
                 <input type="text" name="password"/><br>
             </label><br>
             <label>
@@ -43,7 +40,7 @@ class Index(webapp2.RequestHandler):
                 <input type="text" name="confirm"/><br>
             </label><br>
             <label>
-            Email(Optional)
+            <span style="display:inline-block; padding-right:5px;">Email(Optional)</span>
                 <input type="text" name="email"/><br>
             </label>
             <buton><input type="submit" value="Submit"/></button>
@@ -55,9 +52,6 @@ class Index(webapp2.RequestHandler):
         content = main_content + page_footer
         self.response.write(content)
 class UserVerify(webapp2.RequestHandler):
-    """ Handles requests coming in to '/add'
-        e.g. www.flicklist.com/add
-    """
     def post(self):
         user_name = self.request.get("username")
         password = self.request.get("password")
