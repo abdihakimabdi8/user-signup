@@ -12,24 +12,24 @@
     <h1>
         <a href="/">User Signup</a>
     </h1>
-<form action="/" method="post">
+<form action="/userverify" method="post">
         <div style="display:block; ">
 
              <span style="padding-right:48px;">Username</span>
              <input type="text" name="username" value="{{username}}"/>
-             <p class="error">{{error_escaped}}</p>
+             <p class="error">{{ error_escaped if error_escaped else "" }}</p>
         </div>
 
 
     <div>
     <span style="display:inline-block; padding-right:50px;">Password</span>
         <input type="text" name="password" value="{{password}}"/>
-        <p class="error">{{error_escaped}}</p>
+        <p class="error">{{ error_escaped if error_escaped else "" }}</p>
     </div>
 
     <div>Confirm Pasword
         <input type="text" name="confirm" value=""/>
-        <p class="=error">{{error_escaped}}</p>
+        <p class="=error">{{ error_escaped if error_escaped else "" }}</p>
    </div>
    <div>
         <span style="display:inline-block; padding-right:5px;">Email(Optional)</span>
