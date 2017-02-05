@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign UP</title>
+    <style type="text/css">
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        <a href="/">User Signup</a>
+    </h1>
+<form action="/" method="post">
+        <div style="display:block; ">
+
+             <span style="padding-right:48px;">Username</span>
+             <input type="text" name="username" value="{{username}}"/>
+             <p class="error">{{error_escaped}}</p>
+        </div>
+
+
+    <div>
+    <span style="display:inline-block; padding-right:50px;">Password</span>
+        <input type="text" name="password" value="{{password}}"/>
+        <p class="error">{{error_escaped}}</p>
+    </div>
+
+    <div>Confirm Pasword
+        <input type="text" name="confirm" value=""/>
+        <p class="=error">{{error_escaped}}</p>
+   </div>
+   <div>
+        <span style="display:inline-block; padding-right:5px;">Email(Optional)</span>
+        <input type="text" name="email" value="{{email}}"/><br>
+    </div>
+    <buton><input type="submit" value="Submit"/></button>
+</form></div>
+</body>
+</html>
