@@ -5,7 +5,18 @@
     <style type="text/css">
         .error {
             color: red;
+
         }
+        #username {
+            display: inline;
+
+        }
+        .box{
+            margin-right: 0px;
+
+        }
+
+
     </style>
 </head>
 <body>
@@ -13,27 +24,26 @@
         <a href="/">User Signup</a>
     </h1>
 <form action="/userverify" method="post">
-        <div style="display:block; ">
+        <div id="username" >
 
-             <span style="padding-right:48px;">Username</span>
-             <input type="text" name="username" value="{{username}}"/>
-             <p class="error">{{ error_escaped if error_escaped else "" }}</p>
+             <span class="label" style="padding-right:48px;">Username</span>
+             <input class="box" type="text" name="username" value="{{username}}"/>
+             <p class="error">{{ error_username if error_username else "" }}</p>
         </div>
-
-
     <div>
     <span style="display:inline-block; padding-right:50px;">Password</span>
         <input type="text" name="password" value="{{password}}"/>
-        <p class="error">{{ error_escaped if error_escaped else "" }}</p>
+        <p class="error">{{ error_password if error_password else "" }}</p>
     </div>
-
-    <div>Confirm Pasword
+   <div>
+    <span >Confirm Pasword</span>
         <input type="text" name="confirm" value=""/>
-        <p class="=error">{{ error_escaped if error_escaped else "" }}</p>
+        <p class="=error">{{ error_verify if error_verify else "" }}</p>
    </div>
    <div>
         <span style="display:inline-block; padding-right:5px;">Email(Optional)</span>
         <input type="text" name="email" value="{{email}}"/><br>
+        <p class="=error">{{ error_email if error_email else "" }}</p>
     </div>
     <buton><input type="submit" value="Submit"/></button>
 </form></div>

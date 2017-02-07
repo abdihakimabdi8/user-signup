@@ -18,43 +18,51 @@ def valid_password(password):
 EMAIL_RE  = re.compile(r'^[\S]+@[\S]+\.[\S]+$')
 def valid_email(email):
     return not email or EMAIL_RE.match(email)
+def render_str(template, **params):
+    t = jinja_env.get_template(template)
+    return t.render(params)
 class Handler(webapp2.RequestHandler):
-    def renderError(self, error_code):
-        self.error(error_code)
-        self.response.write("Oops! Something went wrong.")
+    def write(self, *a, **kw):
+        self.response.out.write(*a, **kw)
+
+    def render_str(self, template, **params):
+        return render_str(template, **params)
+
+    def render(self, template, **kw):
+        self.write(self.render_str(template, **kw))
 class Index(Handler):
     def get(self):
         t = jinja_env.get_template("signup-form.html")
-        content = t.render(error_escaped=self.request.get("error"))
+        content = t.render(error=self.request.get("error"))
         self.response.write (content)
 class UserVerify(Handler):
     def post(self):
-
-        user_name = self.request.get("username")
+        username = self.request.get("username")
         password = self.request.get("password")
         confirm_password = self.request.get("confirm")
         email =self.request.get("email")
-        error = False
-        if not valid_username(user_name):
-            error = " Please provide valid username"
-            error_escaped = cgi.escape(error, quote=True)
-            error = True
-        if not valid_password(password):
-            error = " Please provide valid password"
-            error_escaped = cgi.escape(error, quote=True)
-            error = True
-        if (confirm_password == password)==False:
-            error = "Password Verification failed"
-            error_escaped = cgi.escape(error, quote=True)
-        if error:
+        have_error = False
+        params = dict(username = username,
+                      email = email)
+        if not valid_username(username):
+            params['error_username'] = " Please provide valid username"
+            have_error = True
 
-            t = jinja_env.get_template("signup-form.html")
-            content = t.render( error_escaped = error_escaped)
-            self.response.write (content)
+        if not valid_password(password):
+            params['error_password'] = " Please provide valid password"
+            have_error = True
+
+        if (confirm_password == password)==False:
+            params['error_verify'] = "Password Verification failed"
+            have_error = True
+        if not valid_email(email):
+            params['error_verify'] = " Please provide valid E-mail"
+            have_error = True
+        if have_error:
+            self.render('signup-form.html', **params)
         else:
 
-
-            self.response.write("Welcome, " + user_name)
+            self.response.write("Welcome, " + "<strong>" + username + "<strong>")
 #class Welcome(Handler):
     #def get(self):
     #    username = self.request.get("username")
